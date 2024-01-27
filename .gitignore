@@ -1,4 +1,6 @@
 config.toml
+.vscode
+bin
 
 # Compiled class file
 *.class
