@@ -2,20 +2,11 @@ import java.util.Scanner;
 
 public class App {
 
-    public static int[] convertArrayToInt(String[] elements) {
-        int[] newArr = new int[elements.length];
-
-        for (int i = 0; i < elements.length; i++) {
-            newArr[i] = Integer.parseInt(elements[i]);
-        }
-        return newArr;
-    }
-
     public static void main(String[] args) throws Exception {
         System.out.println("Hi, Welcome to Maman13, Almog Shtaigmann & Tamir Zitman");
         boolean isOver = false;
         int d;
-        Scanner scanner = new Scanner(System.in);
+        InputHandler inputHandler = new InputHandler();
         /*
         The possible action are:
         1. Build new Heap
@@ -33,7 +24,6 @@ public class App {
 
         while (!isOver) {
 
-
             switch (userAction) {
                 case -1:
                     System.out.println("Choose what you wan to do:");
@@ -43,7 +33,7 @@ public class App {
                     System.out.println("5-");
 
                     try {
-                        userAction = Integer.parseInt(scanner.nextLine());
+                        userAction = inputHandler.ReadUserIntput();
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid action");
                     }
@@ -51,13 +41,14 @@ public class App {
                 case 1:
                     System.out.println("Lest build new d-ary Heap!");
                     System.out.println("Enter d for d-ary Heap:");
-
-                    d = Integer.parseInt(scanner.nextLine());
+                    d = inputHandler.ReadUserIntput();
                     DHeap h = new DHeap(d);
 
-                    System.out.println("Enter numbers to build the d-ary Heap, add space between each number");
-                    String[] userInput = scanner.nextLine().split(" ");
-                    h.buildHeap(convertArrayToInt(userInput));
+
+                    int[] heapElements = inputHandler.ReadUserArray();
+                    h.buildHeap(heapElements);
+
+                    System.out.println(h);
                     userAction = -1;
 
                     break;
