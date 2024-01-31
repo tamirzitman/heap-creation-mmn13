@@ -63,6 +63,6 @@ public class App {
                 "Enter numbers to build the d-ary Heap, seperated by a single space between each number:");
         DHeap h = new DHeap(d);
         h.buildHeap(heapElements);
-        System.out.println(h);
+        h.printHeap();
     }
 }
