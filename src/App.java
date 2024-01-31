@@ -8,17 +8,17 @@ public class App {
         int d;
         InputHandler inputHandler = new InputHandler();
         /*
-        The possible action are:
-        1. Build new Heap
-        2. Remove element k from the heap
-        3. Insert new element k into the heap
-        4.
-        5.
-        6.
-        7.
-        8.
-        9.
-        10. exit the program
+         * The possible action are:
+         * 1. Build new Heap
+         * 2. Remove element k from the heap
+         * 3. Insert new element k into the heap
+         * 4.
+         * 5.
+         * 6.
+         * 7.
+         * 8.
+         * 9.
+         * 10. exit the program
          */
         int userAction = 1;
 
@@ -26,11 +26,11 @@ public class App {
 
             switch (userAction) {
                 case -1:
-                    System.out.println("Choose what you wan to do:");
-                    System.out.println("1- Build new d-ary Heap");
-                    System.out.println("3-");
-                    System.out.println("4-");
-                    System.out.println("5-");
+                    System.out.println("Choose what you want to do:");
+                    System.out.println("1 - Build new d-ary Heap");
+                    System.out.println("3 -");
+                    System.out.println("4 -");
+                    System.out.println("5 -");
 
                     try {
                         userAction = inputHandler.ReadUserIntput();
@@ -39,11 +39,10 @@ public class App {
                     }
 
                 case 1:
-                    System.out.println("Lest build new d-ary Heap!");
+                    System.out.println("Let's build a new d-ary Heap!");
                     System.out.println("Enter d for d-ary Heap:");
                     d = inputHandler.ReadUserIntput();
                     DHeap h = new DHeap(d);
-
 
                     int[] heapElements = inputHandler.ReadUserArray();
                     h.buildHeap(heapElements);
@@ -64,9 +63,7 @@ public class App {
 
             }
 
-
         }
     }
-
 
 }
