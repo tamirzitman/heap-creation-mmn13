@@ -1,69 +1,69 @@
-import java.util.Scanner;
-
 public class App {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("Hi, Welcome to Maman13, Almog Shtaigmann & Tamir Zitman");
-        boolean isOver = false;
         int d;
         InputHandler inputHandler = new InputHandler();
-        /*
-         * The possible action are:
-         * 1. Build new Heap
-         * 2. Remove element k from the heap
-         * 3. Insert new element k into the heap
-         * 4.
-         * 5.
-         * 6.
-         * 7.
-         * 8.
-         * 9.
-         * 10. exit the program
-         */
-        int userAction = 1;
 
-        while (!isOver) {
+        try {
+            // Get the d value from the user
+            d = inputHandler.readUserInput("Enter d for d-ary Heap:");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for d. Exiting program.");
+            return;
+        }
+
+        System.out.println("Let's build our first d-ary Heap!");
+        buildNewHeap(inputHandler, d);
+
+        while (true) {
+            /*
+             * The possible actions are:
+             * 1. Build new Heap (overriding any exisiting heap)
+             * 2. Remove element with k value from the heap
+             * 3. Insert new element with k value into the heap
+             * 4. Extracting the Max value from the heap
+             * 5. Increace certain key value
+             *
+             * Any other key - exit the program
+             */
+            int userAction = inputHandler.readUserInput("Enter the action (1-5, or any other number to exit):");
 
             switch (userAction) {
-                case -1:
-                    System.out.println("Choose what you want to do:");
-                    System.out.println("1 - Build new d-ary Heap (Any exisitng heap will be overridden)");
-                    System.out.println("3 -");
-                    System.out.println("4 -");
-                    System.out.println("5 -");
-
-                    try {
-                        userAction = inputHandler.ReadUserIntput();
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid action");
-                    }
-
                 case 1:
-                    System.out.println("Let's build a new d-ary Heap!");
-                    System.out.println("Enter d for d-ary Heap:");
-                    d = inputHandler.ReadUserIntput();
-                    DHeap h = new DHeap(d);
-
-                    int[] heapElements = inputHandler.ReadUserArray();
-                    h.buildHeap(heapElements);
-
-                    System.out.println(h);
-                    userAction = -1;
-
+                    System.out.printf("Let's build a new d-ary (%d-ary) Heap!%n%n", d);
+                    buildNewHeap(inputHandler, d);
                     break;
 
                 case 2:
+                    System.out.printf("Let's remove element k from our d-ary (%d-ary) Heap!%n%n", d);
                     break;
 
                 case 3:
+                    // Add case 3 logic
+                    break;
+
+                case 4:
+                    // Add case 4 logic
+                    break;
+
+                case 5:
+                    // Add case 5 logic
                     break;
 
                 default:
-                    break;
-
+                    System.out.println("Exiting program.");
+                    return;
             }
-
         }
     }
 
+    private static void buildNewHeap(InputHandler inputHandler, int d) {
+        int[] heapElements = inputHandler
+                .readUserArray(
+                        "Enter numbers to build the d-ary Heap, seperated by a single space between each number:");
+        DHeap h = new DHeap(d);
+        h.buildHeap(heapElements);
+        System.out.println(h);
+    }
 }
