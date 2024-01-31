@@ -27,7 +27,7 @@ public class App {
             switch (userAction) {
                 case -1:
                     System.out.println("Choose what you want to do:");
-                    System.out.println("1 - Build new d-ary Heap");
+                    System.out.println("1 - Build new d-ary Heap (Any exisitng heap will be overridden)");
                     System.out.println("3 -");
                     System.out.println("4 -");
                     System.out.println("5 -");
