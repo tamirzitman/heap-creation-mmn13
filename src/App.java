@@ -59,9 +59,8 @@ public class App {
     }
 
     private static void buildNewHeap(InputHandler inputHandler, int d) {
-        int[] heapElements = inputHandler
-                .readUserArray(
-                        "Enter numbers to build the d-ary Heap, seperated by a single space between each number:");
+        int[] heapElements = inputHandler.readUserArray(
+                "Enter numbers to build the d-ary Heap, seperated by a single space between each number:");
         DHeap h = new DHeap(d);
         h.buildHeap(heapElements);
         System.out.println(h);
