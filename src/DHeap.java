@@ -25,9 +25,23 @@ public class DHeap {
             insertNewElement(element);
     }
 
+    // public void removeIndex(int removalIndex) {
+    // if (removalIndex > this.size) {
+    // System.out.println("The index is not in the size of elements is " +
+    // MAX_SIZE);
+    // return;
+    // }
+    // try {
+    // // Trying to get the value from removal index
+    // removalValue =this.heap[removalIndex];
+    // } catch () {
+    // System.out.println("Invalid i")
+    // }
+    // }
+
     private void insertNewElement(int newElement) {
-        // this.size++;
         int newIndex = this.size;
+        this.size++;
         this.heap[size] = Integer.MAX_VALUE;
 
         // check: if the newly inserted elmment is greater than MAX VAlue
@@ -77,7 +91,6 @@ public class DHeap {
     }
 
     private int getParentIndex(int index) {
-        // Is that ערך תחתון ?
         return Math.floorDiv(index - 1, this.d);
     }
 

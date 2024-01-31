@@ -19,7 +19,7 @@ public class InputHandler {
         }
     }
 
-    public int readUserInput(String prompt) {
+    public int readUserNumber(String prompt) {
         while (true) {
             try {
                 System.out.println(prompt);
