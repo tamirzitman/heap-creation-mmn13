@@ -101,7 +101,7 @@ public class DHeap {
 
     public void heapify(int i) {
         int largest = i;
-        for (int l = getChildIndex(i + 1, 1); l < getChildIndex(i + 1, d); l++) {
+        for (int l = getChildIndex(i + 1, 1); l <= getChildIndex(i + 1, d); l++) {
             if (l < this.size && this.heap[l] > this.heap[largest]) {
                 largest = l;
             }
@@ -110,7 +110,6 @@ public class DHeap {
             swap(i, largest);
             heapify(largest);
         }
-
     }
 
     public int extractMax() {
@@ -145,7 +144,7 @@ public class DHeap {
         this.size--;
 
         // Heapify the replaced
-        heapify(0);
+        heapify(removalIndex);
     }
 
 
