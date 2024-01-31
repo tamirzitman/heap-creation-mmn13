@@ -25,28 +25,28 @@ public class DHeap {
             insertNewElement(element);
     }
 
-    // public void removeIndex(int removalIndex) {
-    // if (removalIndex > this.size) {
-    // System.out.println("The index is not in the size of elements is " +
-    // MAX_SIZE);
-    // return;
-    // }
-    // try {
-    // // Trying to get the value from removal index
-    // removalValue =this.heap[removalIndex];
-    // } catch () {
-    // System.out.println("Invalid i")
-    // }
-    // }
+    public void removeIndex(int removalIndex) {
+        // if (removalIndex > this.size) {
+        // System.out.println("The index is not in the size of elements is " +
+        // MAX_SIZE);
+        // return;
+        // }
+        // try {
+        // // Trying to get the value from removal index
+        // removalValue =this.heap[removalIndex];
+        // } catch () {
+        // System.out.println("Invalid i")
+        // }
+    }
 
     private void insertNewElement(int newElement) {
         int newIndex = this.size;
         this.size++;
-        this.heap[size] = Integer.MAX_VALUE;
+        this.heap[newIndex] = Integer.MAX_VALUE;
 
         // check: if the newly inserted elmment is greater than MAX VAlue
         if (newElement > Integer.MAX_VALUE) {
-            System.out.println("One or more of the elements is greater than the MAX value allowed");
+            System.out.println("Skiping an element that is greater than the MAX value allowed");
             return;
         }
 
