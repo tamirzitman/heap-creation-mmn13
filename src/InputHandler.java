@@ -30,6 +30,20 @@ public class InputHandler {
         }
     }
 
+    public void printInstruction() {
+        System.out.println(
+                """
+                        \nThe possible actions are:
+                        1. Build new Heap (overriding any existing heap)
+                        2. Remove element on index i from the heap
+                        3. Increase certain k value into index i
+                        4. Insert new element with k value into the heap
+                        5. Extracting the Max value from the heap
+                                        
+                        """
+        );
+    }
+
     private static int[] convertArrayToInt(String[] elements) {
         int[] newArr = new int[elements.length];
 

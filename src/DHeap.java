@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class DHeap {
     final private int MAX_SIZE = 5000;
     private int d;
@@ -13,6 +16,16 @@ public class DHeap {
         }
         this.heap = new int[MAX_SIZE];
         this.size = 0;
+    }
+
+    public DHeap(int d, int[] heap) {
+        this(d);
+        this.heap = heap;
+        this.size = heap.length;
+    }
+
+    public int getD() {
+        return this.d;
     }
 
     public void buildHeap(int[] elements) {
@@ -42,43 +55,99 @@ public class DHeap {
     private void insertNewElement(int newElement) {
         int newIndex = this.size;
         this.size++;
-        this.heap[size] = Integer.MAX_VALUE;
+        this.heap[newIndex] = Integer.MIN_VALUE;
 
-        // check: if the newly inserted elmment is greater than MAX VAlue
-        if (newElement > Integer.MAX_VALUE) {
-            System.out.println("One or more of the elements is greater than the MAX value allowed");
+        increaseKey(newIndex, newElement);
+    }
+
+    public void increaseKey(int i, int k) {
+        if (k <= this.heap[i] || i >= this.size) {
+            System.out.println("Skipping an element, invalid key or index");
             return;
         }
 
-        this.heap[newIndex] = newElement;
+        this.heap[i] = k;
 
-        int parentIndex = getParentIndex(newIndex);
-        while (newIndex > 0 && this.heap[parentIndex] > newElement) {
-            swap(newIndex, parentIndex);
-            newIndex = parentIndex;
-            parentIndex = getParentIndex(newIndex);
+        int parentIndex = getParentIndex(i + 1);
+        while (i > 0 && this.heap[parentIndex] < k) {
+            swap(i, parentIndex);
+            i = parentIndex;
+            parentIndex = getParentIndex(i + 1);
         }
+
     }
 
-    // GPT version, need to check
-    private void heapify(int index) {
-        int smallest = index; // Initialize the smallest as root
-        int[] children = new int[d]; // Array to hold indices of children
+    public void maxHeapify(int indexToHeapifyFrom) {
+        int maxElementIndex = indexToHeapifyFrom;
 
-        // Find indices of all children of the node at index
-        for (int k = 1; k <= d; ++k) {
-            children[k - 1] = getChildIndex(index, k);
-            if (children[k - 1] < size && heap[children[k - 1]] < heap[smallest]) {
-                smallest = children[k - 1];
+        // Find index of max element of current node childrens
+        for (int childNumber = 0; childNumber < this.d; childNumber++) {
+            int childIndexInHeapArray = ChildIndex(indexToHeapifyFrom, childNumber);
+
+            // Update value of max element index to current child index if he's larger than
+            // value in maxElementIndex
+            if (childIndexInHeapArray < size && heap[childIndexInHeapArray] > heap[maxElementIndex]) {
+                maxElementIndex = childIndexInHeapArray;
             }
         }
 
-        // If the smallest is not root, swap it with root and continue heapifying
-        if (smallest != index) {
-            swap(index, smallest);
-            heapify(smallest);
+        // Swap if max element is in different index
+        if (maxElementIndex != indexToHeapifyFrom) {
+            swap(maxElementIndex, indexToHeapifyFrom);
+
+            maxHeapify(maxElementIndex);
         }
     }
+
+    public void heapify(int i) {
+        int largest = i;
+        for (int l = getChildIndex(i + 1, 1); l < getChildIndex(i + 1, 1); l++) {
+            if (l < this.size && this.heap[l] > this.heap[largest]) {
+                largest = l;
+            }
+        }
+        if (largest != i) {
+            swap(this.heap[i], this.heap[largest]);
+            heapify(largest);
+        }
+
+    }
+
+    public int extractMax() {
+        int maxElement;
+
+        maxElement = heap[0];
+
+        // Set last element at heap in first index
+        heap[0] = heap[size - 1];
+
+        size--;
+
+        maxHeapify(0);
+
+        return maxElement;
+    }
+
+    public void removeIndex(int removalIndex) {
+        // Trying to access the selected index
+        try {
+            int removalValue = this.heap[removalIndex];
+            System.out.printf("Value to be removed is %d %n", removalValue);
+        } catch (Exception e) {
+            System.out.print("Can't get the removal index - Failed to remove the element on index i from Heap!%n%n");
+        }
+
+        // Swapping the element with the last item
+        int lastInd = this.size - 1;
+        swap(removalIndex, lastInd);
+
+        // deleting Last Element
+        this.size--;
+
+        // Heapify the replaced
+        heapify(0);
+    }
+
 
     private void swap(int i, int j) {
         int temp = this.heap[i];
@@ -86,12 +155,16 @@ public class DHeap {
         this.heap[j] = temp;
     }
 
-    private int getChildIndex(int index, int k) {
-        return this.d * index + k;
+    public int ChildIndex(int i, int j) {
+        return ((d * i) + j + 1);
+    }
+
+    private int getChildIndex(int index, int j) {
+        return (index - 1) * this.d + j;
     }
 
     private int getParentIndex(int index) {
-        return Math.floorDiv(index - 1, this.d);
+        return Math.floorDiv(index + this.d - 2, this.d) - 1;
     }
 
     private int getTreeHeight() {
@@ -110,7 +183,7 @@ public class DHeap {
 
     public void printHeap() {
         StringBuilder heapTree = new StringBuilder();
-        String tab = "\t";
+        String tab = "\t\t";
         String space = " ";
         int firstElementInLevelIndex;
 
@@ -119,8 +192,8 @@ public class DHeap {
             firstElementInLevelIndex = getFirstElementInLevel(level);
 
             for (int elementIndexInHeap = firstElementInLevelIndex,
-                    elementCounter = 0; elementCounter < getNumberOfElementsForLevel(level)
-                            && elementIndexInHeap < size; elementIndexInHeap++, elementCounter++) {
+                 elementCounter = 0; elementCounter < getNumberOfElementsForLevel(level)
+                         && elementIndexInHeap < size; elementIndexInHeap++, elementCounter++) {
                 heapTree.append(heap[elementIndexInHeap]);
                 heapTree.append(space);
             }

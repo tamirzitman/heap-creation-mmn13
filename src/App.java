@@ -1,10 +1,11 @@
 public class App {
+    static InputHandler inputHandler = new InputHandler();
+
 
     public static void main(String[] args) {
         System.out.println("Hi, Welcome to Maman13, Almog Shtaigmann & Tamir Zitman");
         int d;
 
-        InputHandler inputHandler = new InputHandler();
 
         try {
             // Get the d value from the user
@@ -16,7 +17,7 @@ public class App {
 
         System.out.println("Let's build our first d-ary Heap!");
         DHeap h = new DHeap(d);
-        h = buildNewHeap(inputHandler, h, true);
+        buildNewHeap(h);
 
         while (true) {
             /*
@@ -29,29 +30,27 @@ public class App {
              *
              * Any other number - exit the program
              */
+            inputHandler.printInstruction();
             int userAction = inputHandler.readUserNumber("Enter the action (1-5, or any other number to exit):");
 
             switch (userAction) {
                 case 1:
-                    System.out.printf("Let's build a new d-ary (%d-ary) Heap!%n%n", d);
-                    h = buildNewHeap(inputHandler, h, true);
+                    buildNewHeap(h);
                     break;
 
                 case 2:
-                    System.out.printf("Let's remove the element on index i from our d-ary (%d-ary) Heap!%n%n", d);
-                    h = removeElementiFromHeap(inputHandler, h, true);
+                    removeElementFromHeap(h);
                     break;
 
                 case 3:
-                    // Add case 3 logic
+                    increaseKey(h);
                     break;
 
                 case 4:
-                    // Add case 4 logic
                     break;
 
                 case 5:
-                    // Add case 5 logic
+                    extractMaxElementFromHeap(h);
                     break;
 
                 default:
@@ -61,20 +60,34 @@ public class App {
         }
     }
 
-    private static DHeap buildNewHeap(InputHandler inputHandler, DHeap h, boolean printNewHeap) {
+    private static void buildNewHeap(DHeap h) {
+        System.out.printf("Let's build a new d-ary (%d-ary) Heap!%n%n", h.getD());
         int[] heapElements = inputHandler.readUserArray(
                 "Enter numbers to build the d-ary Heap, seperated by a single space between each number:");
         h.buildHeap(heapElements);
-        if (printNewHeap) {
-            h.printHeap();
-        }
-        return h;
+        h.printHeap();
     }
 
-    private static DHeap removeElementiFromHeap(InputHandler inputHandler, DHeap h, boolean printNewHeap) {
+    private static void removeElementFromHeap(DHeap h) {
+        System.out.printf("Let's remove the element on index i from our d-ary (%d-ary) Heap!%n%n", h.getD());
         int removalIndex = inputHandler.readUserNumber("Enter an index to remove the elment from our d-ary Heap");
-        // h.removeIndex(removalIndex);
+        h.removeIndex(removalIndex);
+        h.printHeap();
+    }
 
-        return h;
+    private static void extractMaxElementFromHeap(DHeap h) {
+        System.out.printf("Let's extract the element from our d-ary (%d-ary) Heap!%n%n", h.getD());
+        int maxElement = h.extractMax();
+        System.out.printf("%d was removed", maxElement);
+        h.printHeap();
+    }
+
+    private static void increaseKey(DHeap h) {
+        System.out.printf("Let's increase the element on index i from our d-ary (%d-ary) Heap!%n%n", h.getD());
+        int increaseIndex = inputHandler.readUserNumber("Enter an index to increase the element from our d-ary Heap");
+        int increaseKey = inputHandler.readUserNumber("Enter a ket to increase the element from our d-ary Heap");
+
+        h.increaseKey(increaseIndex, increaseKey);
+        h.printHeap();
     }
 }
