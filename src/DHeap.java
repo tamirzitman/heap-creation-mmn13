@@ -101,13 +101,13 @@ public class DHeap {
 
     public void heapify(int i) {
         int largest = i;
-        for (int l = getChildIndex(i + 1, 1); l < getChildIndex(i + 1, 1); l++) {
+        for (int l = getChildIndex(i + 1, 1); l < getChildIndex(i + 1, d); l++) {
             if (l < this.size && this.heap[l] > this.heap[largest]) {
                 largest = l;
             }
         }
         if (largest != i) {
-            swap(this.heap[i], this.heap[largest]);
+            swap(i, largest);
             heapify(largest);
         }
 
