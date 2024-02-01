@@ -92,6 +92,7 @@ public class DHeap {
     public void increaseKey(int i, int k) {
         if (k <= this.heap[i] || i >= this.size) {
             System.out.println("Skipping an element, invalid key or index");
+
             return;
         }
 
