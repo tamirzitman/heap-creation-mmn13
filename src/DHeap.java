@@ -1,15 +1,15 @@
 /**
  * DHeap: A Flexible d-ary Heap Implementation
-
+ * <p>
  * Overview:
  * It's like a regular heap, but each node can have 'd' kids, not just two. This makes for some
  * nifty, efficient ways to access the biggest item and do stuff like adding or removing elements.
-
+ * <p>
  * What's Inside:
  * - 'heap': Just an array where all the heap magic happens.
  * - 'size': Keeps track of how many things are in the heap.
  * - 'd': This is how many children each node gets to have.
-
+ * <p>
  * Key Actions:
  * - 'insertNewElement' adds it to the heap.
  * - Need to bump up an element's value? 'increaseKey' has you covered.
@@ -27,6 +27,7 @@ public class DHeap {
 
     /**
      * Constructor for DHeap.
+     *
      * @param d The number of children each node in the heap can have.
      */
     public DHeap(int d) {
@@ -43,14 +44,20 @@ public class DHeap {
 
     /**
      * Gets the value of d in the d-ary heap.
+     *
      * @return The number of children per node.
      */
     public int getD() {
         return this.d;
     }
 
+    public int getSize() {
+        return this.size;
+    }
+
     /**
      * Builds the heap from an array of elements.
+     *
      * @param elements Array of elements to build the heap from.
      */
     public void buildHeap(int[] elements) {
@@ -65,6 +72,7 @@ public class DHeap {
 
     /**
      * Inserts a new element into the heap.
+     *
      * @param newElement The element to be inserted into the heap.
      */
     public void insertNewElement(int newElement) {
@@ -77,6 +85,7 @@ public class DHeap {
 
     /**
      * Increases the key at a given index in the heap.
+     *
      * @param i Index at which the key needs to be increased.
      * @param k The new key value which is greater than the current key value at index i.
      */
@@ -98,6 +107,7 @@ public class DHeap {
 
     /**
      * Maintains the heap property by restructuring the heap downwards from the given index.
+     *
      * @param i The index from which to start the heapify process.
      */
     public void heapify(int i) {
@@ -115,17 +125,17 @@ public class DHeap {
 
     /**
      * Extracts the maximum element from the heap.
+     *
      * @return The maximum element from the heap.
      */
     public int extractMax() {
         int maxElement;
+        maxElement = this.heap[0];
 
-        maxElement = heap[0];
+        // Set last element at heap in the first indx
+        this.heap[0] = this.heap[this.size - 1];
 
-        // Set last element at heap in first index
-        heap[0] = heap[size - 1];
-
-        size--;
+        this.size--;
 
         heapify(0);
 
@@ -134,16 +144,18 @@ public class DHeap {
 
     /**
      * Removes an element at a specified index from the heap.
+     *
      * @param removalIndex The index of the element to be removed.
      */
     public void removeIndex(int removalIndex) {
         // Trying to access the selected index
-        try {
-            int removalValue = this.heap[removalIndex];
-            System.out.printf("Value to be removed is %d %n", removalValue);
-        } catch (Exception e) {
-            System.out.print("Can't get the removal index - Failed to remove the element on index i from Heap!%n%n");
+        if (removalIndex >= this.size) {
+            System.out.print("Can't get the removal index - invalid index in Heap!%n%n");
+            return;
         }
+
+        int removalValue = this.heap[removalIndex];
+        System.out.printf("Value to be removed in index %d -> %d %n", removalIndex, removalValue);
 
         // Swapping the element with the last item
         int lastInd = this.size - 1;
@@ -159,6 +171,7 @@ public class DHeap {
 
     /**
      * Swaps two elements in the heap.
+     *
      * @param i First element index to swap.
      * @param j Second element index to swap.
      */
@@ -171,8 +184,9 @@ public class DHeap {
 
     /**
      * Calculates the child index for a given node index and child number.
+     *
      * @param index The index of the parent node.
-     * @param j The child number (1st, 2nd, ..., dth).
+     * @param j     The child number (1st, 2nd, ..., dth).
      * @return The index of the jth child of the node at the given index.
      */
     private int getChildIndex(int index, int j) {
@@ -181,6 +195,7 @@ public class DHeap {
 
     /**
      * Calculates the parent index for a given node index.
+     *
      * @param index The index of the child node.
      * @return The index of the parent of the node at the given index.
      */
@@ -190,6 +205,7 @@ public class DHeap {
 
     /**
      * Calculates the height of the heap.
+     *
      * @return The height of the heap.
      */
     private int getTreeHeight() {
@@ -198,6 +214,7 @@ public class DHeap {
 
     /**
      * Calculates the number of elements at a given level of the heap.
+     *
      * @param level The level in the heap.
      * @return The number of elements at the given level.
      */
@@ -207,6 +224,7 @@ public class DHeap {
 
     /**
      * Calculates the index of the first element at a given level of the heap.
+     *
      * @param level The level in the heap.
      * @return The index of the first element at the given level.
      */
@@ -237,6 +255,6 @@ public class DHeap {
             heapTree.append(tab);
         }
 
-       return heapTree.toString();
+        return heapTree.toString();
     }
 }

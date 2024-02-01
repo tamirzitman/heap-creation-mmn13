@@ -20,9 +20,9 @@ public class App {
         while (true) {
             /*
              * The possible actions are:
-             * 1. Build new Heap (overriding any exisiting heap)
+             * 1. Build new Heap (overriding any existing heap)
              * 2. Remove element on index i from the heap
-             * 3. Increace certain k value into index i
+             * 3. Increase certain k value into index i
              * 4. Insert new element with k value into the heap
              * 5. Extracting the Max value from the heap
              *
@@ -46,12 +46,13 @@ public class App {
         System.out.printf("Let's insert new element into our d-ary (%d-ary) Heap!%n%n", h.getD());
         int newMember = inputHandler.readUserNumber("Enter the member value:");
         h.insertNewElement(newMember);
-
-
     }
 
     private static void buildNewHeap(DHeap h) {
         System.out.printf("Let's build a new d-ary (%d-ary) Heap!%n%n", h.getD());
+        if (h.getSize() > 0) {
+            h = new DHeap(h.getD());
+        }
         int[] heapElements = inputHandler.readUserArray(
                 "Enter numbers to build the d-ary Heap, seperated by a single space between each number:");
         h.buildHeap(heapElements);
